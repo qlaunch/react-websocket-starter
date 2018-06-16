@@ -17,17 +17,40 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler));
 }
 
+let MSGS = [
+  {
+    msg: 'test',
+    votes: 2
+  }, 
+  {
+    msg: 'help',
+    votes: 4
+  }
+  ];
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html')
 });
 
-io.on('connection', function(client) {
+
+io.on('connection', function(socket) {
   console.log('client connected!');
 
-  client.on('join', function(data) {
+  socket.on('join', function(data) {
     console.log(data);
+  });
+
+  socket.emit('msgs', {msgs: MSGS});
+
+  socket.on('send-msg', (msg) => {
+    console.log('msg received')
+    MSGS.push(msg);
+    MSGS.sort((a, b) => {
+      return b.votes - a.votes;
+    })
+    io.emit('msgs', {msgs: MSGS});
   });
 });
 
