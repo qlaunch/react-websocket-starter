@@ -42,16 +42,16 @@ io.on('connection', function(socket) {
     console.log(data);
   });
 
-  socket.emit('msgs', {msgs: MSGS});
+  // socket.emit('msgs', {msgs: MSGS});
 
-  socket.on('send-msg', (msg) => {
-    console.log('msg received')
-    MSGS.push(msg);
-    MSGS.sort((a, b) => {
-      return b.votes - a.votes;
-    })
-    io.emit('msgs', {msgs: MSGS});
-  });
+  // socket.on('send-msg', (msg) => {
+  //   console.log('msg received')
+  //   MSGS.push(msg);
+  //   MSGS.sort((a, b) => {
+  //     return b.votes - a.votes;
+  //   })
+  //   io.emit('msgs', {msgs: MSGS});
+  // });
 });
 
 server.listen(PORT, function(error) {
