@@ -13,21 +13,21 @@ const App = React.createClass({
     socket.on('connect', function(data) {
       socket.emit('join', 'hello world from the client!');
     });
-    socket.on('msgs', (data) => {
-      console.log('client got msgs', data);
-      this.setState({MSGS: data.msgs});
-      console.log(this.state)
-    })
+    // socket.on('msgs', (data) => {
+    //   console.log('client got msgs', data);
+    //   this.setState({MSGS: data.msgs});
+    //   console.log(this.state)
+    // })
   },
 
-  sendMSG = (ev) => {
-    ev.preventDefault();
-    let newQuestion = {msg: ev.target.msg.value, votes: 0}
-    if(ev.target.msg.value){
-    socket.emit('send-msg', newQuestion);
-    }
-    ev.target.reset();
-  },
+  // sendMSG = (ev) => {
+  //   ev.preventDefault();
+  //   let newQuestion = {msg: ev.target.msg.value, votes: 0}
+  //   if(ev.target.msg.value){
+  //   socket.emit('send-msg', newQuestion);
+  //   }
+  //   ev.target.reset();
+  // },
 
   render() {
     return <Fragment>
